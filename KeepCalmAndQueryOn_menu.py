@@ -158,6 +158,7 @@ class small_example:
     def TAP_tripDetails(self, trip_ID):
     # Generates list of TAP leaders, their trip count, and other details
     # self.generateLeaderLog()
+        pass
 
 s = small_example()
 
