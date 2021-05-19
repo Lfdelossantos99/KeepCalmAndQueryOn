@@ -127,7 +127,7 @@ public class tableGen {
       // name char(20)
       return nameArray[rnd.nextInt(maxName)];
     }
-    private static int getTripID(D) {
+    private static int getTripID() {
       // trip_ID INTEGER
       // we'll have courses numbered 10000 - 30000
     return 100001 + rnd.nextInt(29999);
