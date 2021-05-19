@@ -122,7 +122,7 @@ class small_example:
             # for line in cur:
             # print("{}|{}|{}".format(line[0], line[1], line[2]))
 
-         except psycopg2.ProgrammingError as p:
+        except psycopg2.ProgrammingError as p:
              print("Error, please try again")
              print(p)
 
