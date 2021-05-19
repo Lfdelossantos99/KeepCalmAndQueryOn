@@ -69,10 +69,9 @@ class small_example:
             print(p)
 
     # Generates checks out all equipment
-    def equipCheckInOut(self):
-        def isValidItem(self, item_ID):
+    def isValidItem(self, item_ID):
             cur = self.connection_cursor()
-            # noinspection SqlResolve
+           
             query = "SELECT equip_name, current_condition FROM equip_inv WHERE equip_ID = %d;"
             try:
                 cur.execute(query, item_ID)
@@ -83,6 +82,8 @@ class small_example:
                     return True
                 else:
                     return False
+    def equipCheckInOut(self):
+
 
         cur = self.connection.cursor()
         print("Are you interested in checking equipment in or out?\n")
@@ -100,7 +101,7 @@ class small_example:
             IDPair = input(
                 "What would you like? Please enter item ID and your ID separated by whitespace: item_ID your_ID\n")
             # Check if item_ID is valid
-            if not isValidItem(IDPair[0]):
+            if not self.isValidItem(IDPair[0]):
                 print("Invalid item, try again.\n")
                 return
             # noinspection SqlResolve
@@ -113,7 +114,7 @@ class small_example:
             return "Done"
         else:
             item_ID = input("What equipment are you checking in today? Please enter the equipment's item_ID.\n")
-            if not isValidItem(item_ID):
+            if not self.isValidItem(item_ID):
                 print("Invalid item, try again.\n")
                 return
             query = "if (SELECT due_dt FROM rentals WHERE item_ID=%s AND check_in_dt IS NULL) - SELECT NOW() > 000 days 00:00:00 then UPDATE rentals SET (check_in_dt = (SELECT NOW()), notes = 'Turned in late!') WHERE item_ID=%s AND check_in_dt IS NULL else UPDATE rentals SET check_in_dt = (SELECT NOW()) WHERE item_ID=%s AND check_in_dt IS NULL"
