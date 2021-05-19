@@ -313,7 +313,7 @@ public class tableGen {
         //notes
         String note = rentalNoteArray[rnd.nextInt(rentalNoteArray.length)];
         //string statment
-        s = eq_id.toString() + ", " + ren_id.toString() ", " + squote(formatTimeDate(start)) + ", " + squote(formatTimeDate(due)) + ", " + squote(formatTimeDate(end)) + ", " + note;
+        s = eq_id.toString() + ", " + ren_id.toString() + ", " + squote(formatTimeDate(start)) + ", " + squote(formatTimeDate(due)) + ", " + squote(formatTimeDate(end)) + ", " + note;
         out.println ("insert into students values(" + s +");");
       }
       // out.close();  
