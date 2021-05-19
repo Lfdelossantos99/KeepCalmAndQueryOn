@@ -129,12 +129,12 @@ class small_example:
     # Registration system for students to attend TAP trips
     def registerStudent(self):
         cur = self.connection.cursor()
-        IDPair = input(
+        IDPair,trip = input(
             "Please input your ID and ID of the trip you wish to register for separated by whitespace: registrant_ID trip_ID\n")
         # noinspection SqlResolve
-        query = "INSERT INTO registers (registrant_ID, trip_ID) VALUES (%d, %d)"
+        query = "INSERT INTO registers (registrant_ID, trip_ID) VALUES (%d, %d,%d)"
         try:
-            cur.execute(query, IDPair)
+            cur.execute(query, IDPair,trip)
         except psycopg2.ProgrammingError as p:
             print("Error, please try again")
             print(p)
