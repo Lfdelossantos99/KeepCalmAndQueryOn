@@ -4,7 +4,7 @@ import psycopg2
 class small_example:
 
     def __init__(self):
-        self.connection = psycopg2.connect(host="localhost", port=5432, dbname="small_example", user="jkhow")
+        self.connection = psycopg2.connect(host="localhost", port=5432, dbname="t", user="jkhow")
 
     def menu_print(self):
             return input("==================================\n"
