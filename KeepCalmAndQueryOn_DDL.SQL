@@ -108,7 +108,7 @@ CREATE TABLE rentals
         ON DELETE CASCADE,
     --FOREIGN KEY (check_in_condition) REFERENCES equip_inv,
     CHECK (check_out_dt < due_dt),
-    CHECK (check_out_dt < check_in_dt),
+    CHECK (check_out_dt < check_in_dt)
     );
 --records all previous and current registrations for TAP trips
 CREATE TABLE registers
@@ -118,7 +118,7 @@ CREATE TABLE registers
     FOREIGN KEY (registrant_ID) REFERENCES students
         ON DELETE CASCADE,
     FOREIGN KEY (trip_ID) REFERENCES trips
-        ON DELETE CASCADE,
+        ON DELETE CASCADE
     );
 
 --records all TAP leaaders who currently/have been registered to lead trips, recorded per trip
@@ -131,6 +131,6 @@ CREATE TABLE leads
     FOREIGN KEY (lead_ID) REFERENCES students
         ON DELETE CASCADE,
     FOREIGN KEY (trip_ID) REFERENCES trips
-        ON DELETE CASCADE,
+        ON DELETE CASCADE
     );
  
