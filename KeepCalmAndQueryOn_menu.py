@@ -1,5 +1,6 @@
 import psycopg2
 
+
 class small_example:
 
     def __init__(self):
