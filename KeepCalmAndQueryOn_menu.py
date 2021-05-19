@@ -72,9 +72,9 @@ class small_example:
     def isValidItem(self, item_ID):
             cur = self.connection_cursor()
            
-            query = "SELECT equip_name, current_condition FROM equip_inv WHERE equip_ID = %d;"
+            q = "SELECT equip_name, current_condition FROM equip_inv WHERE equip_ID = %d;"
             try:
-                cur.execute(query, item_ID)
+                cur.execute(q, item_ID)
             except psycopg2.ProgrammingError as p:
                 print("Error, please try again")
                 print(p)
@@ -82,6 +82,7 @@ class small_example:
                     return True
                 else:
                     return False
+
     def equipCheckInOut(self):
 
 
