@@ -1,6 +1,5 @@
 import psycopg2
 
-
 class small_example:
 
     def __init__(self):
@@ -44,12 +43,11 @@ class small_example:
                 isValid = True
             elif (cur_input == '4'):
                 print("Generating Trip Records....")
-                self.generateCourses()
-                self.TAP_registrationList() #TODO: finish implementing this method
+                self.TAP_tripList #TODO: finish implementing this method
                 isValid = True
             elif (cur_input == '5'):
                 print("Generating TAP Leader Records...")
-                self.generateLeaderLog()
+                # self.generateLeaderLog()
                 isValid = True
             else:
                 cur_input = input("Please enter valid input (number 0 to 5): ")
@@ -58,6 +56,7 @@ class small_example:
     # Generates all equipment currently available for rent
     def listAvailableEquip(self):
         cur = self.connection.cursor()
+        # noinspection SqlResolve
         query = "SELECT equip_name, current_condition FROM equip_inv WHERE equip_ID NOT IN (SELECT item_ID FROM rentals WHERE check_in_dt is NULL);"
         try:
             cur.execute(query)
@@ -71,6 +70,20 @@ class small_example:
 
     # Generates checks out all equipment
     def equipCheckInOut(self):
+        def isValidItem(self, item_ID):
+            cur = self.connection_cursor()
+            # noinspection SqlResolve
+            query = "SELECT equip_name, current_condition FROM equip_inv WHERE equip_ID = %d;"
+            try:
+                cur.execute(query, item_ID)
+            except psycopg2.ProgrammingError as p:
+                print("Error, please try again")
+                print(p)
+                if cur.fetchone() is not None:
+                    return True
+                else:
+                    return False
+
         cur = self.connection.cursor()
         print("Are you interested in checking equipment in or out?\n")
         var = input("Please enter in or out.\n")
@@ -85,47 +98,64 @@ class small_example:
             print("The following equipment is eligible to be checked out\n")
             self.listAvailableEquip()
             IDPair = input(
-                "What would you like? Please enter item ID and your ID separated by whitespace: item_ID your_ID")
+                "What would you like? Please enter item ID and your ID separated by whitespace: item_ID your_ID\n")
             # Check if item_ID is valid
-            def isValidItem(item_ID):
-                cur = self.connection_cursor()
-                query = "SELECT equip_name, current_condition FROM equip_inv WHERE equip_ID = %d;"
-                cur.execute(query, item_ID)
-                if cur.fetchone() is not None:
-                    return True
-                else:
-                    return False
-
             if not isValidItem(IDPair[0]):
-                print("Invalid item, try again.")
+                print("Invalid item, try again.\n")
                 return
+            # noinspection SqlResolve
             query = "INSERT INTO rentals (item_ID, renter_ID, check_out_dt, check_in_dt) VALUES (%d, %d, (SELECT NOW()), (SELECT NOW() + INTERVAL '1 week'));"
+        try:
             cur.execute(query, IDPair)
+        except psycopg2.ProgrammingError as p:
+            print("Error, please try again")
+            print(p)
+            return "Done"
         else:
-            item_ID = input("What equipment are you checking in today? Please enter the equipment's item_ID")
-
-
-
+            item_ID = input("What equipment are you checking in today? Please enter the equipment's item_ID.\n")
+            if not isValidItem(item_ID):
+                print("Invalid item, try again.\n")
+                return
+            query = "if (SELECT due_dt FROM rentals WHERE item_ID=%s AND check_in_dt IS NULL) - SELECT NOW() > 000 days 00:00:00 then UPDATE rentals SET (check_in_dt = (SELECT NOW()), notes = 'Turned in late!') WHERE item_ID=%s AND check_in_dt IS NULL else UPDATE rentals SET check_in_dt = (SELECT NOW()) WHERE item_ID=%s AND check_in_dt IS NULL"
+        try:
+            cur.execute(query, item_ID)
+        except psycopg2.ProgrammingError as p:
+            print("Error, please try again")
+            print(p)
+            return "Done"
 
     # Registration system for students to attend TAP trips
     def registerStudent(self):
-        pass
+        cur = self.connection.cursor()
+        IDPair = input(
+            "Please input your ID and ID of the trip you wish to register for separated by whitespace: registrant_ID trip_ID\n")
+        # noinspection SqlResolve
+        query = "INSERT INTO registers (registrant_ID, trip_ID) VALUES (%d, %d)"
+        try:
+            cur.execute(query, IDPair)
+        except psycopg2.ProgrammingError as p:
+            print("Error, please try again")
+            print(p)
+        return "Done"
+
 
     # Generates list of TAP trips and each trip's specific details
-    def TAP_registrationList(self):
+    def TAP_tripList(self):
         cur = self.connection.cursor()
+        query = "SELECT * FROM trips"
+        print("trip ID | Title | start | end | destination | description |capacity")
         try:
             cur.execute()
-            # TODO: write a query that joins "registered" with trips
-            # TODO: print out registrant_id, registrant_name, the id of the trip, and the name of the trip, and the neame of the trip lead
-            # Prints with formatting ID|name|ID|name|name
-            # for line in cur:
-            # print("{}|{}|{}".format(line[0], line[1], line[2]))
-
-        except psycopg2.ProgrammingError as p:
+            for line in cur:
+                print("{} | {} | {} | {} | {} | {} |{}".format(line[0], line[1], line[2], line[3], line[4], line[5],
+                                                               line[6]))
+         except psycopg2.ProgrammingError as p:
              print("Error, please try again")
              print(p)
+        return "Done"
 
+    #generates details for a specific trip, people on trip, leader, and so forth
+    def TAP_tripDetails(self, trip_ID):
     # Generates list of TAP leaders, their trip count, and other details
     # self.generateLeaderLog()
 
