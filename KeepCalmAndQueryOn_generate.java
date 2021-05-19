@@ -279,7 +279,7 @@ public class tableGen {
           tryValue = false;
         }
         // condition [0,3]
-        int condit = rnd.nextInt(4) //random val [0,3]
+        int condit = rnd.nextInt(4l); //random val [0,3]
         //string statement
         s = new_id.toString() + ", " + squote(new_name) + ", " + condit.toString();
         out.println("insert into equip_inv values(" + s + ");");
@@ -301,7 +301,7 @@ public class tableGen {
           // due_dt
           due = start.plusDays(7);
           // check_in_dt
-          end = start.plusdays(1 + rnd.nextInt(9)) //some people will turn in late
+          end = start.plusdays(1 + rnd.nextInt(9)); //some people will turn in late
           tryValue = true;
           for (j = 0; j < i; j++) {
             if(start.compareTo(end) > 0 || start.compareTo(due)){
