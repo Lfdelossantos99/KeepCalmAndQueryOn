@@ -32,24 +32,24 @@ class small_example:
                 quit()
             elif (cur_input == '1'):
                 print("Generating all available equipment for rent...")
-                # self.listAvailableEquip() #TODO: create method to check machine inventory
+                self.listAvailableEquip() #TODO: create method to check machine inventory
                 isValid = True
             elif (cur_input == '2'):
                 print("Welcome to Equipment Check Out/Check In!")
-                # self.equipCheckInOut() #TODO: create method to check machine inventory
+                self.equipCheckInOut() #TODO: create method to check machine inventory
                 isValid = True
             elif (cur_input == '3'):
                 print("Welcome to TAP Trip Registration!")
-                # self.registerStudent()
+                self.registerStudent()
                 isValid = True
             elif (cur_input == '4'):
                 print("Generating Trip Records....")
-                # self.generateCourses()
-                #self.TAP_registrationList() #TODO: finish implementing this method
+                self.generateCourses()
+                self.TAP_registrationList() #TODO: finish implementing this method
                 isValid = True
             elif (cur_input == '5'):
                 print("Generating TAP Leader Records...")
-                # self.generateLeaderLog()
+                self.generateLeaderLog()
                 isValid = True
             else:
                 cur_input = input("Please enter valid input (number 0 to 5): ")
