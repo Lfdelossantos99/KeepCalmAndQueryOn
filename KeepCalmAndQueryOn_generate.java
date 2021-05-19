@@ -111,7 +111,7 @@ public class tableGen {
 
     private static int getCapacity() {
       //capacity SMALLINT
-      int capin = rnd.nextInt(tripCapacityArray.length) // shuffling the list by index
+      int capin = rnd.nextInt(tripCapacityArray.length); // shuffling the list by index
       int capacity = tripCapacityArray[capin];
       return capacity;
     }
@@ -220,7 +220,7 @@ public class tableGen {
           }
         }
         // description
-        des = tripDescriptionArray[rnd.nextInt(tripDescriptionArray.length)] //pick a random description
+        des = tripDescriptionArray[rnd.nextInt(tripDescriptionArray.length)]; //pick a random description
         // capacity
         cap = getCapacity();
         //I believe squote will add a singular quote around each, so DATETIME should be in the right format
@@ -311,7 +311,7 @@ public class tableGen {
           }
         }
         //notes
-        String note = rentalNoteArray[rnd.nextInt(rentalNoteArray.length)]
+        String note = rentalNoteArray[rnd.nextInt(rentalNoteArray.length)];
         //string statment
         s = eq_id.toString() + ", " + ren_id.toString(), ", " + squote(formatTimeDate(start), + ", " + squote(formatTimeDate(due)) + ", " + squote(formatTimeDate(end)) + ", " + note));
         out.println ("insert into students values(" + s +");");
@@ -350,3 +350,4 @@ public class tableGen {
       }
       // out.close();  
 }
+  }
