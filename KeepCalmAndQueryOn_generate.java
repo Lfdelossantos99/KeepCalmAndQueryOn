@@ -15,7 +15,7 @@ public class tableGen {
   private static Random rnd = new Random();
   private static String[] tripLocationArray = new String[maxTripLoc];
   private static String[] tripActivityArray = {"Biking", "Hiking", "Backpacking", "Bird Watching", "Canoeing", "Camping", "Kayaking", "Paddleboarding", "Yoga Retreat", "Caving", "Climbing", "Surfing", "Skydiving"};
-  private static String[] tripDescriptionArray = {"A trip you will never want to forget!", "Make friends that will last a lifetime!", "YOLO", "This beautiful trip is just what you need to escape your busy student schedule", "Join us for an outdoor adventure you will never forget!", "Details TBD.");
+  private static String[] tripDescriptionArray = {"A trip you will never want to forget!", "Make friends that will last a lifetime!", "YOLO", "This beautiful trip is just what you need to escape your busy student schedule", "Join us for an outdoor adventure you will never forget!", "Details TBD."};
   private static int[] tripCapacityArray = {8,10,10,10,12,12,15,15,15,20,25}; //want 10 and 15 to be the most commonly-picked
   private static String[] rentalNoteArray = {"Double-check condition", "Returned item late in the past", "Suggestion", "Note A", "Note B", "Note C", "Note D", "Note E"};
   private static int[] nextTripID = new int[1000]; // starts at 0
@@ -313,7 +313,7 @@ public class tableGen {
         //notes
         String note = rentalNoteArray[rnd.nextInt(rentalNoteArray.length)];
         //string statment
-        s = eq_id.toString() + ", " + ren_id.toString(), ", " + squote(formatTimeDate(start), + ", " + squote(formatTimeDate(due)) + ", " + squote(formatTimeDate(end)) + ", " + note));
+        s = eq_id.toString() + ", " + ren_id.toString() ", " + squote(formatTimeDate(start) + ", " + squote(formatTimeDate(due)) + ", " + squote(formatTimeDate(end)) + ", " + note));
         out.println ("insert into students values(" + s +");");
       }
       // out.close();  
